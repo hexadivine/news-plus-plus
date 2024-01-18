@@ -1,9 +1,9 @@
 import Sidebar from "./Sidebar";
 import { categories } from "../../config/config";
 
-function CategoriesSidebar() {
+function CategoriesSidebar({category, selectCategory}) {
     return <>
-        <Sidebar list={categories} searchBy={'categoies'} />
+        <Sidebar selectElement={selectCategory}  element={category} list={categories} searchBy={'categories'} />
     </>
 }
 

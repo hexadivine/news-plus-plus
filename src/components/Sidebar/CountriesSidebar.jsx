@@ -1,9 +1,9 @@
 import Sidebar from "./Sidebar";
 import { countries } from "../../config/config";
 
-function CountriesSidebar() {
+function CountriesSidebar({selectCountry, country}) {
     return <>
-        <Sidebar list={countries} searchBy={'countries'}/>
+        <Sidebar element={country} selectElement={selectCountry} list={countries} searchBy={'countries'}/>
     </>
 }
 
