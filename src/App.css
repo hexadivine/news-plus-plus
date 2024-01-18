@@ -7,4 +7,5 @@ body {
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(to bottom right, #390B26, #1D112F, #0C0821, #000410);
+  color: white;
 }
