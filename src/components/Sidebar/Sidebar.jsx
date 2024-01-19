@@ -18,9 +18,10 @@ function Sidebar({ element, selectElement, list, searchBy }) {
 
     return (
         <div className="bg-[#390b26]">
-            <div className="bg-[#8a8a8a]/25 h-screen text-center">
+            <div className="bg-[#ffffff30] h-screen text-center">
                 <input
                     type="text"
+                    name="search"
                     className=" mt-[60px] mb-[34px] w-[150px] h-[50px]  py-[10px] px-[20px] bg-transparent rounded-[10px] border-[1px] text-center placeholder-[#fff]/40 placeholder:text-[14px] focus:outline-none bg-[#390b26] placeholder-shown:bg-transparent"
                     placeholder={`Search ${searchBy}`}
                     onChange={(event) =>
