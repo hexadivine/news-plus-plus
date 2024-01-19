@@ -1,4 +1,5 @@
 import "./App.css";
+import HeroSection from "./components/Main/HeroSection";
 import Navbar from "./components/Navbar/Navbar";
 import CategoriesSidebar from "./components/Sidebar/CategoriesSidebar";
 import CountriesSidebar from "./components/Sidebar/CountriesSidebar";
@@ -39,6 +40,8 @@ function App() {
                     toggleRightSidebar={toggleRightSidebar}
                     setToggleRightSidebar={setToggleRightSidebar}
                 />
+
+                <HeroSection />
             </div>
             {toggleRightSidebar ? (
                 <CountriesSidebar
