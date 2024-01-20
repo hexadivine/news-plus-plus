@@ -7,7 +7,7 @@ function HeroSection({ newsDict, newsDictBackup, category }) {
                 {newsDict[category.toLowerCase()]?.map((news, index) => (
                     <div
                         key={index}
-                        className={`flex flex-col justify-end cursor-pointer bg-[#58585830] bg-center min-h-[300px] p-[20px] rounded-[10px]  shadow-[0_-100px_50px_#000000_inset] overflow-y-scroll no-scrollbar  ${
+                        className={`flex flex-col justify-end cursor-pointer bg-[#58585830] bg-center min-h-[300px] p-[20px] rounded-[10px]   overflow-y-scroll no-scrollbar shadow-[0_-150px_200px_inset_black] ${
                             news.title.length + news.description.length < 150
                                 ? `sm:col-span-1 sm:row-span-1 `
                                 : news.title.length + news.description.length < 300
@@ -23,6 +23,7 @@ function HeroSection({ newsDict, newsDictBackup, category }) {
                             backgroundSize: "cover",
                             backgroundColor: `${news.urlToImage === "" || news.urlToImage === null || news.urlToImage.includes("cdn.vox-cdn.com") ? "#58585830" : "#390b2686"}`,
                             backgroundBlendMode: "multiply",
+                            // boxShadow: "0 -150px 200px inset black",
                             // gridTemplateColumns: 'repeat("auto-fit", minmax("300px", "1fr"))',
                         }}
                     >
