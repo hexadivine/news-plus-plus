@@ -1,16 +1,26 @@
+import { useState, useEffect } from "react";
 import "./App.css";
+// import modules
+import { fetchNews } from "./modules/fetchNews.modules";
+// import components
 import HeroSection from "./components/Main/HeroSection";
 import Navbar from "./components/Navbar/Navbar";
 import CategoriesSidebar from "./components/Sidebar/CategoriesSidebar";
 import CountriesSidebar from "./components/Sidebar/CountriesSidebar";
-import { useState } from "react";
 
 function App() {
-    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedCountry, setSelectedCountry] = useState();
 
     const [toggleLeftSidebar, setToggleLeftSidebar] = useState(true);
     const [toggleRightSidebar, setToggleRightSidebar] = useState(true);
+
+    const [newsDict, setNewsDict] = useState({});
+    const [newsDictBackup, setNewsDictBackup] = useState({});
+
+    useEffect(() => {
+        fetchNews(newsDict, setNewsDict, setNewsDictBackup);
+    }, []);
 
     return (
         <div
@@ -40,14 +50,14 @@ function App() {
                     toggleRightSidebar={toggleRightSidebar}
                     setToggleRightSidebar={setToggleRightSidebar}
                 />
-
-                <HeroSection />
+                <HeroSection
+                    newsDict={newsDict}
+                    newsDictBackup={newsDictBackup}
+                    category={selectedCategory}
+                />
             </div>
             {toggleRightSidebar ? (
-                <CountriesSidebar
-                    country={selectedCountry}
-                    selectCountry={setSelectedCountry}
-                />
+                <CountriesSidebar country={selectedCountry} selectCountry={setSelectedCountry} />
             ) : (
                 ""
             )}
