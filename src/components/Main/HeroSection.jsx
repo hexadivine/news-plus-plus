@@ -1,45 +1,37 @@
 import React from "react";
 
-function HeroSection() {
-    const n = 20;
-    const a = [];
-    for (let i = 0; i < n; i++) {
-        a.push(i);
-    }
-
+function HeroSection({ newsDict, newsDictBackup, category }) {
     return (
-        <div className=" h-[calc(100vh-115px)] rounded-t-[20px] mx-[30px] bg-[#58585830] ">
-            <div className="relative h-full grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] grid-flow-dense gap-[10px] w-[95%] mx-auto pt-[20px] overflow-y-scroll no-scrollbar">
-                <div className="bg-black min-h-[200px] col-span-2 overflow-hidden">
-                    1
-                </div>
-                <div className="bg-black min-h-[200px] col-span-2 row-span-2 overflow-hidden">
-                    2
-                </div>
-                <div className="bg-black min-h-[200px] col-span-2 row-span-2 overflow-hidden">
-                    3
-                </div>
-                <div className="bg-black min-h-[200px] col-span-2 row-span-2 overflow-hidden">
-                    4
-                </div>
-                <div className="bg-black min-h-[200px] col-span-2 row-span-2 overflow-hidden">
-                    5
-                </div>
-                <div className="bg-black min-h-[200px] col-span-2 row-span-2 overflow-hidden">
-                    6
-                </div>
-                <div className="bg-black min-h-[200px] overflow-hidden">7</div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
-                <div className="bg-black min-h-[200px] overflow-hidden"></div>
+        <div className=" h-[calc(100vh-115px)] rounded-t-[20px] mx-[30px] bg-[rgba(88,88,88,0.19)] p-[20px]">
+            <div className="h-full grid grid-flow-dense grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[1.5em] mx-auto pt-[20px] overflow-y-scroll no-scrollbar ">
+                {newsDict[category.toLowerCase()]?.map((news, index) => (
+                    <div
+                        key={index}
+                        className={`flex flex-col justify-end cursor-pointer bg-[#58585830] bg-center min-h-[300px] p-[20px] rounded-[10px]  shadow-[0_-100px_50px_#000000_inset] overflow-y-scroll no-scrollbar  ${
+                            news.title.length + news.description.length < 150
+                                ? `sm:col-span-1 sm:row-span-1 `
+                                : news.title.length + news.description.length < 300
+                                  ? Math.random() < 0.5
+                                      ? `sm:col-span-2 sm:row-span-1`
+                                      : `sm:col-span-1 sm:row-span-2`
+                                  : news.title.length + news.description.length >= 300
+                                    ? `sm:col-span-2 sm:row-span-2`
+                                    : ``
+                        }`}
+                        style={{
+                            backgroundImage: `url(${news.urlToImage === "" || news.urlToImage === null || news.urlToImage.includes("cdn.vox-cdn.com") ? "/news_pattern_bg.jpg" : news.urlToImage})`,
+                            backgroundSize: "cover",
+                            backgroundColor: `${news.urlToImage === "" || news.urlToImage === null || news.urlToImage.includes("cdn.vox-cdn.com") ? "#58585830" : "#390b2686"}`,
+                            backgroundBlendMode: "multiply",
+                            // gridTemplateColumns: 'repeat("auto-fit", minmax("300px", "1fr"))',
+                        }}
+                    >
+                        <b className="text-[20px] text-white opacity-100 mb-[10px]">
+                            {news.title} - {index}{" "}
+                        </b>
+                        <p className="text-[gray]">{news.description}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
