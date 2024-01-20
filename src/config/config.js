@@ -1,5 +1,13 @@
+import { API_KEYS } from "./env";
+
+const API_BASE_URL = "https://newsapi.org/v2/";
+const ENDPOINT = "everything?";
+const PARAMS = "&q=Business OR Politics OR Sports OR Science OR Technology OR Entertainment OR Health OR Education OR Crime OR Domestic OR Environment OR Food OR Other OR Tourism OR World";
+
+export const API_URLS_EVERYTHING_ENDPOINT = API_KEYS.map((API_KEY) => API_BASE_URL + ENDPOINT + API_KEY + PARAMS);
+
 export const categories = [
-    "Top",
+    "All",
     "Business",
     "Politics",
     "Sports",
