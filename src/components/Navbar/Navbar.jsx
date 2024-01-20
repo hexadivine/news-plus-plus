@@ -13,12 +13,12 @@ function Navbar({
             <div className="bg-[#58585830] rounded-full p-[10px]">
                 {toggleLeftSidebar ? (
                     <RiMenuFoldFill
-                        className="size-[20px]"
+                        className="size-[20px] cursor-pointer"
                         onClick={() => setToggleLeftSidebar((prev) => !prev)}
                     />
                 ) : (
                     <RiMenuUnfoldFill
-                        className="size-[20px]"
+                        className="size-[20px] cursor-pointer"
                         onClick={() => setToggleLeftSidebar((prev) => !prev)}
                     />
                 )}
@@ -34,22 +34,18 @@ function Navbar({
                 />
             </div>
             <div className="flex  justify-center items-center w-[150px] h-[40px] bg-[#58585830]  gap-[10px] rounded-full">
-                <img
-                    src="/cloud-sun.png"
-                    alt="cloud"
-                    className="h-[25px] w-[25px]"
-                />
+                <img src="/cloud-sun.png" alt="cloud" className="h-[25px] w-[25px]" />
                 <div>23°c</div>
             </div>
             <div className="bg-[#58585830] rounded-full p-[10px]">
                 {!toggleRightSidebar ? (
                     <RiMenuFoldFill
-                        className="size-[20px]"
+                        className="size-[20px] cursor-pointer"
                         onClick={() => setToggleRightSidebar((prev) => !prev)}
                     />
                 ) : (
                     <RiMenuUnfoldFill
-                        className="size-[20px]"
+                        className="size-[20px] cursor-pointer"
                         onClick={() => setToggleRightSidebar((prev) => !prev)}
                     />
                 )}
