@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 // import modules
-import { fetchNews } from "./modules/fetchNews.modules";
+import { fetchNewsWithMultipleKeys } from "./modules/fetchNews.modules";
 // import components
 import HeroSection from "./components/Main/HeroSection";
 import Navbar from "./components/Navbar/Navbar";
@@ -9,17 +9,23 @@ import CategoriesSidebar from "./components/Sidebar/CategoriesSidebar";
 import CountriesSidebar from "./components/Sidebar/CountriesSidebar";
 
 function App() {
-    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedCategory, setSelectedCategory] = useState("all");
     const [selectedCountry, setSelectedCountry] = useState();
+    const [searchNews, setSearchNews] = useState("");
 
     const [toggleLeftSidebar, setToggleLeftSidebar] = useState(true);
     const [toggleRightSidebar, setToggleRightSidebar] = useState(true);
 
-    const [newsDict, setNewsDict] = useState({});
-    const [newsDictBackup, setNewsDictBackup] = useState({});
+    const [newsDict, setNewsDict] = useState([]);
 
     useEffect(() => {
-        fetchNews(newsDict, setNewsDict, setNewsDictBackup);
+        fetchNewsWithMultipleKeys("&category=business,politics,science,technology,world ").then(
+            (response) => {
+                console.log("logging response");
+                console.log(response);
+                setNewsDict(newsDict.concat(response));
+            }
+        );
     }, []);
 
     return (
@@ -49,12 +55,15 @@ function App() {
                     setToggleLeftSidebar={setToggleLeftSidebar}
                     toggleRightSidebar={toggleRightSidebar}
                     setToggleRightSidebar={setToggleRightSidebar}
+                    setSearchNews={setSearchNews}
                 />
                 <HeroSection
+                    searchBy={searchNews}
+                    setNewsDict={setNewsDict}
                     newsDict={newsDict}
-                    newsDictBackup={newsDictBackup}
                     category={selectedCategory}
                 />
+                {/* {JSON.stringify(newsDict)} */}
             </div>
             {toggleRightSidebar ? (
                 <CountriesSidebar country={selectedCountry} selectCountry={setSelectedCountry} />
