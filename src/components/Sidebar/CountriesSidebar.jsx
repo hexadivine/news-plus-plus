@@ -1,10 +1,17 @@
 import Sidebar from "./Sidebar";
-import { countries } from "../../config/config";
+import { countryCodes } from "../../config/config";
 
-function CountriesSidebar({selectCountry, country}) {
-    return <>
-        <Sidebar element={country} selectElement={selectCountry} list={countries} searchBy={'countries'}/>
-    </>
+function CountriesSidebar({ selectCountry, country }) {
+    return (
+        <>
+            <Sidebar
+                element={country}
+                selectElement={selectCountry}
+                list={Object.keys(countryCodes)}
+                searchBy={"countries"}
+            />
+        </>
+    );
 }
 
 export default CountriesSidebar;
