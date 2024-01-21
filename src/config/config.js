@@ -1,13 +1,16 @@
 import { API_KEYS } from "./env";
 
-const API_BASE_URL = "https://newsapi.org/v2/";
-const ENDPOINT = "everything?";
-const PARAMS = "&q=Business OR Politics OR Sports OR Science OR Technology OR Entertainment OR Health OR Education OR Crime OR Domestic OR Environment OR Food OR Other OR Tourism OR World";
+// const API_BASE_URL = "https://newsdata.io/";
+// const LATEST_NEWS_ENDPOINT = "api/1/news?";
+// const PARAMS = "q=Elon";
 
-export const API_URLS_EVERYTHING_ENDPOINT = API_KEYS.map((API_KEY) => API_BASE_URL + ENDPOINT + API_KEY + PARAMS);
+// export const URLS = API_KEYS.map(
+//     (API_KEY) => API_BASE_URL + LATEST_NEWS_ENDPOINT + API_KEY + PARAMS + "&language=en"
+// );
 
 export const categories = [
     "All",
+    "Top",
     "Business",
     "Politics",
     "Sports",
