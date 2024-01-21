@@ -37,11 +37,27 @@ export async function fetchNewsWithMultipleKeys(
             (API_KEY) => API_BASE_URL + ENDPOINT + API_KEY + PARAMS + "&language=en"
         );
 
+    // const fetchPromises = URLS.map(
+    //     (URL) =>
+    //         new Promise((resolve, reject) => {
+    //             return fetch(URL)
+    //                 .then((response) => response.json())
+    //                 .then((data) => {
+    //                     console.log("this is for - " + URL);
+    //                     console.log(data);
+    //                     if (data.status === "error") return reject(data.results.message);
+    //                     resolve(data.results);
+    //                 });
+    //         })
+    // );
+
+    // const data = await Promise.any(fetchPromises).then((data) => data);
+    // return data;
+
     for (let attempt = 0; attempt < URLS.length; attempt++) {
         console.log("Fetching news - attempt - " + (attempt + 1));
         const results = await fetchNews((URL = URLS[attempt]));
         if (results === false) continue;
-        console.log(results);
         return results;
     }
 }
