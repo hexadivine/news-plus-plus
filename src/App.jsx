@@ -10,7 +10,7 @@ import CountriesSidebar from "./components/Sidebar/CountriesSidebar";
 
 function App() {
     const [selectedCategory, setSelectedCategory] = useState("all");
-    const [selectedCountry, setSelectedCountry] = useState();
+    const [selectedCountry, setSelectedCountry] = useState("global");
     const [searchNews, setSearchNews] = useState("");
 
     const [toggleLeftSidebar, setToggleLeftSidebar] = useState(true);
@@ -21,8 +21,8 @@ function App() {
     useEffect(() => {
         fetchNewsWithMultipleKeys("&category=business,politics,science,technology,world ").then(
             (response) => {
-                console.log("logging response");
-                console.log(response);
+                // console.log("logging response");
+                // console.log(response);
                 setNewsDict(newsDict.concat(response));
             }
         );
@@ -62,6 +62,7 @@ function App() {
                     setNewsDict={setNewsDict}
                     newsDict={newsDict}
                     category={selectedCategory}
+                    country={selectedCountry}
                 />
                 {/* {JSON.stringify(newsDict)} */}
             </div>
