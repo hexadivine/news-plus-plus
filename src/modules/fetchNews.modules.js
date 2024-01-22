@@ -1,4 +1,5 @@
 import { API_KEYS } from "./../config/env";
+import { findUniqeArticlesByTitles } from "../config/config";
 
 export async function fetchNews(
     URL = "",
@@ -36,23 +37,6 @@ export async function fetchNewsWithMultipleKeys(
         URLS = API_KEYS.map(
             (API_KEY) => API_BASE_URL + ENDPOINT + API_KEY + PARAMS + "&language=en"
         );
-
-    // const fetchPromises = URLS.map(
-    //     (URL) =>
-    //         new Promise((resolve, reject) => {
-    //             return fetch(URL)
-    //                 .then((response) => response.json())
-    //                 .then((data) => {
-    //                     console.log("this is for - " + URL);
-    //                     console.log(data);
-    //                     if (data.status === "error") return reject(data.results.message);
-    //                     resolve(data.results);
-    //                 });
-    //         })
-    // );
-
-    // const data = await Promise.any(fetchPromises).then((data) => data);
-    // return data;
 
     for (let attempt = 0; attempt < URLS.length; attempt++) {
         console.log("Fetching news - attempt - " + (attempt + 1));
