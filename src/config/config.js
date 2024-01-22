@@ -8,6 +8,21 @@ import { API_KEYS } from "./env";
 //     (API_KEY) => API_BASE_URL + LATEST_NEWS_ENDPOINT + API_KEY + PARAMS + "&language=en"
 // );
 
+export function findUniqeArticlesByTitles(news) {
+    const title = {};
+    for (let i = 0; i < news.length; i++) {
+        if (title[news[i].title.toLowerCase()] === undefined)
+            title[news[i].title.toLowerCase()] = true;
+        else {
+            const title = news[i].title;
+            news.splice(i, 1);
+            i--;
+            console.log("removed - " + title);
+        }
+    }
+    return news;
+}
+
 export const categories = [
     "All",
     "Top",
