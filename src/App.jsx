@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "./App.css";
 // import modules
 import { fetchNewsWithMultipleKeys } from "./modules/fetchNews.modules";
+import { countryCodes, findUniqeArticlesByTitles } from "./config/config";
+
 // import components
 import HeroSection from "./components/Main/HeroSection";
 import Navbar from "./components/Navbar/Navbar";
@@ -21,12 +23,21 @@ function App() {
     useEffect(() => {
         fetchNewsWithMultipleKeys("&category=business,politics,science,technology,world ").then(
             (response) => {
-                // console.log("logging response");
-                // console.log(response);
-                setNewsDict(newsDict.concat(response));
+                setNewsDict(findUniqeArticlesByTitles([...newsDict, ...response]));
             }
         );
     }, []);
+
+    useEffect(() => {
+        console.log(newsDict);
+        if (newsDict.length !== 0)
+            fetchNewsWithMultipleKeys(
+                `${selectedCategory?.toLowerCase() !== "all" ? "&category=" + selectedCategory.toLowerCase() : ""}${selectedCountry.toLowerCase() !== "global" ? "&country=" + countryCodes[selectedCountry] : ""}`
+            ).then((responses) => {
+                if (responses === undefined) return;
+                setNewsDict(findUniqeArticlesByTitles([...responses, ...newsDict]));
+            });
+    }, [selectedCategory, selectedCountry]);
 
     return (
         <div
