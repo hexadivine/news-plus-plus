@@ -2,22 +2,31 @@ import React from "react";
 import { useEffect } from "react";
 import { fetchNewsWithMultipleKeys } from "../../modules/fetchNews.modules";
 import { countryCodes, findUniqeArticlesByTitles } from "../../config/config";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 function HeroSection({ setNewsDict, searchBy, newsDict, category, country }) {
     return (
         <div className=" h-[calc(100vh-115px)] rounded-t-[20px] mx-[30px] bg-[rgba(88,88,88,0.19)] p-[20px]">
-            <div className="transition-all duration-1000 ease-in-out h-full grid grid-flow-dense grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[1.5em] mx-auto pt-[20px] overflow-y-scroll no-scrollbar ">
+            <div
+                id="news-board"
+                className="transition-all duration-1000 ease-in-out h-full grid grid-flow-dense grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[1.5em] mx-auto pt-[20px] overflow-y-scroll no-scrollbar "
+            >
                 {newsDict
-                    ?.filter((news) =>
-                        country?.toLowerCase() === "global"
-                            ? true
-                            : news.country.includes(country.toLowerCase())
+                    ?.filter(
+                        (
+                            news // look for selected country
+                        ) =>
+                            country?.toLowerCase() === "global" // if not selected default is 'global'
+                                ? true
+                                : news.country.includes(country.toLowerCase())
                     )
-                    ?.filter((news) => news?.title?.toLowerCase().includes(searchBy.toLowerCase()))
+                    ?.filter(
+                        (news) =>
+                            news?.title?.toLowerCase().includes(searchBy.toLowerCase()) ||
+                            news?.description?.toLowerCase().includes(searchBy.toLowerCase())
+                    ) // look for searched value in title and description
                     ?.filter((news) =>
-                        category.toLowerCase() === "all"
-                            ? true
+                        category.toLowerCase() === "all" // look for category
+                            ? true // if not selected default is 'all'
                             : news.category?.includes(category.toLowerCase())
                     )
                     .map((news, index) => (
@@ -27,12 +36,12 @@ function HeroSection({ setNewsDict, searchBy, newsDict, category, country }) {
                                 news?.title?.length + news?.description?.length < 150
                                     ? `sm:col-span-1 sm:row-span-1`
                                     : news?.title?.length + news?.description?.length < 200
-                                      ? `sm:col-span-2 sm:row-span-1`
+                                      ? `sm:col-span-1 sm:row-span-2`
                                       : news?.title?.length + news?.description?.length < 250
-                                        ? `sm:col-span-1 sm:row-span-2`
+                                        ? `sm:col-span-2 sm:row-span-1`
                                         : news?.title?.length + news?.description?.length >= 300
-                                          ? `sm:col-span-2 sm:row-span-2`
-                                          : `sm:col-span-1 sm:row-span-1`
+                                          ? `sm:col-span-1 sm:row-span-3`
+                                          : `sm:col-span-2 sm:row-span-3`
                             }`}
                             style={{
                                 backgroundImage: `url(${news?.image_url === "" || news?.image_url === null ? "/news_pattern_bg.jpg" : news?.image_url})`,
