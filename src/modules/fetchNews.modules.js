@@ -5,10 +5,13 @@ export async function fetchNews(
     URL = "",
     API_BASE_URL = "https://newsdata.io/",
     ENDPOINT = "api/1/news?",
-    PARAMS = "q=Elon"
+    PARAMS = "&q=Elon",
+    page = null
 ) {
     if (URL === "") {
-        URL = API_BASE_URL + ENDPOINT + API_KEYS[0] + PARAMS + "&language=en";
+        if (page === null) URL = API_BASE_URL + ENDPOINT + API_KEYS[0] + PARAMS + "&language=en";
+        else
+            URL = API_BASE_URL + ENDPOINT + API_KEYS[0] + PARAMS + "&language=en" + "&page=" + page;
     }
 
     try {
@@ -18,8 +21,8 @@ export async function fetchNews(
         if (data.status === "error") throw Error(data.message);
 
         if (data.status === "success") {
-            console.log(data);
-            return data.results;
+            console.log("fetched data - " + data);
+            return data;
         }
     } catch (error) {
         console.log(error.message);
@@ -44,4 +47,6 @@ export async function fetchNewsWithMultipleKeys(
         if (results === false) continue;
         return results;
     }
+
+    throw new Error("Listed APIs are not working");
 }
