@@ -1,6 +1,7 @@
 import React from "react";
 import { RiMenuFoldFill } from "react-icons/ri";
 import { RiMenuUnfoldFill } from "react-icons/ri";
+import { fetchNewsWithMultipleKeys } from "../../modules/fetchNews.modules";
 
 function Navbar({
     toggleLeftSidebar,
@@ -8,6 +9,7 @@ function Navbar({
     toggleRightSidebar,
     setToggleRightSidebar,
     setSearchNews,
+    onBlurSearchNewsByInput,
 }) {
     return (
         <div className="flex h-[115px] justify-center items-center gap-[20px] ">
@@ -33,6 +35,7 @@ function Navbar({
                     className="bg-[#58585830] h-[40px] rounded-full text-center focus:placeholder-transparent focus:outline-none"
                     placeholder="Search"
                     onChange={(event) => setSearchNews(event.target.value)}
+                    onBlur={(event) => onBlurSearchNewsByInput(event.target.value)}
                 />
             </div>
             <div className="flex  justify-center items-center w-[150px] h-[40px] bg-[#58585830]  gap-[10px] rounded-full">
