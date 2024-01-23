@@ -20,24 +20,69 @@ function App() {
 
     const [newsDict, setNewsDict] = useState([]);
 
+    // first time news load
     useEffect(() => {
-        fetchNewsWithMultipleKeys("&category=business,politics,science,technology,world ").then(
-            (response) => {
-                setNewsDict(findUniqeArticlesByTitles([...newsDict, ...response]));
-            }
-        );
+        fetchNewsWithMultipleKeys("&category=business,politics,science,technology,world")
+            .then((responses) => {
+                setNewsDict(findUniqeArticlesByTitles(newsDict.concat(responses.results)));
+            })
+            .catch((error) => console.log(error));
     }, []);
 
+    // on scroll news load for infinite scrolling effect
+    useEffect(() => {
+        const newsBoard = document.getElementById("news-board");
+        let allowFetching = true;
+        let nextPage = null;
+
+        function scrollEvent(e) {
+            if (e.target.scrollTop >= e.target.scrollHeight - e.target.offsetHeight - 10) {
+                if (allowFetching) {
+                    allowFetching = false;
+                    fetchNewsWithMultipleKeys(
+                        `${selectedCategory?.toLowerCase() !== "all" ? "&category=" + selectedCategory.toLowerCase() : ""}${selectedCountry.toLowerCase() !== "global" ? "&country=" + countryCodes[selectedCountry] : ""}${nextPage !== null ? "&page=" + nextPage : ""}`
+                    )
+                        .then((responses) => {
+                            setNewsDict((prevNews) =>
+                                findUniqeArticlesByTitles([...prevNews, ...responses.results])
+                            );
+                            nextPage = responses.nextPage;
+                            allowFetching = true;
+                        })
+                        .catch((error) => console.log(error));
+                }
+            }
+        }
+
+        newsBoard.addEventListener("scroll", scrollEvent);
+        return () => newsBoard.removeEventListener("scroll", scrollEvent);
+    }, [selectedCategory, selectedCountry]);
+
+    // show news based on category or country change
     useEffect(() => {
         console.log(newsDict);
         if (newsDict.length !== 0)
             fetchNewsWithMultipleKeys(
                 `${selectedCategory?.toLowerCase() !== "all" ? "&category=" + selectedCategory.toLowerCase() : ""}${selectedCountry.toLowerCase() !== "global" ? "&country=" + countryCodes[selectedCountry] : ""}`
-            ).then((responses) => {
-                if (responses === undefined) return;
-                setNewsDict(findUniqeArticlesByTitles([...responses, ...newsDict]));
-            });
+            )
+                .then((responses) => {
+                    setNewsDict((prevNews) =>
+                        findUniqeArticlesByTitles(responses.results.concat(prevNews))
+                    );
+                })
+                .catch((error) => console.log(error));
     }, [selectedCategory, selectedCountry]);
+
+    function searchNewsByInput(query) {
+        if (query === "") return;
+        fetchNewsWithMultipleKeys("&q=" + query)
+            .then((responses) => {
+                setNewsDict((prevDict) =>
+                    findUniqeArticlesByTitles(prevDict.concat(responses.results))
+                );
+            })
+            .catch((error) => console.log(error));
+    }
 
     return (
         <div
@@ -67,6 +112,7 @@ function App() {
                     toggleRightSidebar={toggleRightSidebar}
                     setToggleRightSidebar={setToggleRightSidebar}
                     setSearchNews={setSearchNews}
+                    onBlurSearchNewsByInput={searchNewsByInput}
                 />
                 <HeroSection
                     searchBy={searchNews}
