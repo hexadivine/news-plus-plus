@@ -5,10 +5,10 @@ import { countryCodes, findUniqeArticlesByTitles } from "../../config/config";
 
 function HeroSection({ setNewsDict, searchBy, newsDict, category, country }) {
     return (
-        <div className=" h-[calc(100vh-115px)] rounded-t-[20px] mx-[30px] bg-[rgba(88,88,88,0.19)] p-[20px]">
+        <div className=" h-[calc(100vh-11.5rem)] rounded-t-[2rem] mx-[3rem] bg-[rgba(88,88,88,0.19)] p-[2rem]">
             <div
                 id="news-board"
-                className="transition-all duration-1000 ease-in-out h-full grid grid-flow-dense grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[1.5em] mx-auto pt-[20px] overflow-y-scroll no-scrollbar "
+                className="transition-all duration-1000 ease-in-out h-full grid grid-flow-dense grid-cols-[repeat(auto-fit,minmax(30rem,1fr))] gap-[1.5em] mx-auto pt-[2rem] overflow-y-scroll no-scrollbar "
             >
                 {newsDict
                     ?.filter(
@@ -32,7 +32,7 @@ function HeroSection({ setNewsDict, searchBy, newsDict, category, country }) {
                     .map((news, index) => (
                         <div
                             key={index}
-                            className={` flex flex-col justify-end cursor-pointer bg-[#58585830] bg-center h-full p-[20px] rounded-[10px] shadow-[0_-150px_200px_inset_black] ${
+                            className={` flex flex-col justify-end cursor-pointer bg-[#58585830] bg-center h-full p-[2rem] rounded-[1rem] shadow-[0_-15rem_20rem_inset_black] ${
                                 news?.title?.length + news?.description?.length < 150
                                     ? `sm:col-span-1 sm:row-span-1`
                                     : news?.title?.length + news?.description?.length < 200
@@ -71,8 +71,8 @@ function HeroSection({ setNewsDict, searchBy, newsDict, category, country }) {
                                     />
                                 ))}
                             </div>
-                            <div className="news_text flex flex-col justify-end pt-[100px]">
-                                <b className="text-[20px] text-white opacity-100 mb-[10px]">
+                            <div className="news_text flex flex-col justify-end pt-[10rem]">
+                                <b className="text-[2rem] text-white opacity-100 mb-[1rem]">
                                     {news?.title}
                                 </b>
                                 <p className="text-[gray]">{news?.pubDate}</p>

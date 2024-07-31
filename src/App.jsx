@@ -19,7 +19,6 @@ function App() {
     const [toggleRightSidebar, setToggleRightSidebar] = useState(true);
 
     const [newsDict, setNewsDict] = useState([]);
-
     // first time news load
     useEffect(() => {
         fetchNewsWithMultipleKeys("&category=business,politics,science,technology,world")
@@ -88,11 +87,11 @@ function App() {
         <div
             className={`grid grid-flow-col ${
                 toggleLeftSidebar && toggleRightSidebar
-                    ? "grid-cols-[200px_1fr_200px]"
+                    ? "grid-cols-[20rem_1fr_20rem]"
                     : toggleLeftSidebar
-                      ? "grid-cols-[200px_1fr]"
+                      ? "grid-cols-[20rem_1fr]"
                       : toggleRightSidebar
-                        ? "grid-cols-[1fr_200px]"
+                        ? "grid-cols-[1fr_20rem]"
                         : ""
             }`}
         >

@@ -1,5 +1,3 @@
-import { API_KEYS } from "./env";
-
 // const API_BASE_URL = "https://newsdata.io/";
 // const LATEST_NEWS_ENDPOINT = "api/1/news?";
 // const PARAMS = "q=Elon";

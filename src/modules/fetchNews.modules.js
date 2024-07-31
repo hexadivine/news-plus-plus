@@ -1,5 +1,6 @@
-import { API_KEYS } from "./../config/env";
 import { findUniqeArticlesByTitles } from "../config/config";
+
+const API_KEYS = JSON.parse(import.meta.env.VITE_API_KEYS);
 
 export async function fetchNews(
     URL = "",
