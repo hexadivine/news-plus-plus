@@ -15,8 +15,8 @@ function App() {
     const [selectedCountry, setSelectedCountry] = useState("global");
     const [searchNews, setSearchNews] = useState("");
 
-    const [toggleLeftSidebar, setToggleLeftSidebar] = useState(true);
-    const [toggleRightSidebar, setToggleRightSidebar] = useState(true);
+    const [toggleLeftSidebar, setToggleLeftSidebar] = useState(false);
+    const [toggleRightSidebar, setToggleRightSidebar] = useState(false);
 
     const [newsDict, setNewsDict] = useState([]);
     // first time news load
